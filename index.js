@@ -56,6 +56,7 @@ router.route('/documents')
 		doc.documentID = req.body.documentID;
 		doc.title = req.body.title;
 		doc.text = req.body.text;
+		doc.items = req.body.items;
 
 		doc.save(function(err) {
 			if (err) {
