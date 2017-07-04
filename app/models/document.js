@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var DocumentSchema = new Schema({
-	id: Number,
+	documentID: Number,
 	title: String,
 	text: String
 });

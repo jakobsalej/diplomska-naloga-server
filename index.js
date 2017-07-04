@@ -53,7 +53,7 @@ router.route('/documents')
 	.post(function(req, res) {
 
 		var doc = new Document();
-		doc.id = req.body.id;
+		doc.documentID = req.body.documentID;
 		doc.title = req.body.title;
 		doc.text = req.body.text;
 
@@ -82,7 +82,7 @@ router.route('/documents/:doc_id')
 	
 	.get(function(req, res) {
 		console.log('Requesting document with ID', req.params.doc_id);
-		Document.findOne({ 'id': req.params.doc_id }, function(err, doc) {
+		Document.findOne({ 'documentID': req.params.doc_id }, function(err, doc) {
 			if (err) {
 				res.send(err);
 			}
