@@ -55,6 +55,16 @@ router.route('/documents')
 		var doc = new Document();
 		doc.documentID = req.body.documentID;
 		doc.title = req.body.title;
+		doc.customer = req.body.customer;
+		doc.startLocation = req.body.startLocation;
+		doc.endLocation = req.body.endLocation;
+		doc.vehicleTypeRequired = req.body.vehicleTypeRequired;
+		doc.cargo = req.body.cargo;
+		doc.dateDeadline = req.body.dateDeadline;
+		doc.transportData = req.body.transportData;
+		doc.status = req.body.status;
+		doc.successfullyDelivered = req.body.successfullyDelivered;
+		
 		doc.text = req.body.text;
 		doc.items = req.body.items;
 
