@@ -71,8 +71,8 @@ var DocumentSchema = new Schema({
 		default: 0 
 	},									// 0 = not started, 1 = in process, 2 = finished
 	successfullyDelivered: {
-		type: Boolean,
-		default: false
+		type: Number,
+		default: 0				// 0 = false, 1 = true
 	},	
 	dateCreated: { 
 		type: Date, 
