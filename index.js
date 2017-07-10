@@ -50,8 +50,8 @@ mongoose.connect('mongodb://admin:admin@ds137891.mlab.com:37891/diploma_db');
 // DOCUMENT ROUTER
 router.route('/documents')
 
+	// CREATE
 	.post(function(req, res) {
-
 		var doc = new Document();
 		doc.documentID = req.body.documentID;
 		doc.title = req.body.title;
@@ -68,6 +68,7 @@ router.route('/documents')
 
 	})
 
+	// GET ALL
 	.get(function(req, res) {
 		Document.find(function(err, docs) {
 			if (err) {
@@ -81,6 +82,7 @@ router.route('/documents')
 
 router.route('/documents/:doc_id')
 	
+	// GET ONE
 	.get(function(req, res) {
 		console.log('Requesting document with ID', req.params.doc_id);
 		Document.findOne({ 'documentID': req.params.doc_id }, function(err, doc) {
@@ -90,4 +92,28 @@ router.route('/documents/:doc_id')
 
 			res.json(doc);
 		});
+	})
+
+	// UPDATE
+	.put(function(req, res) {
+		console.log('Requesting document with ID', req.params.doc_id);
+		Document.findOne({ 'documentID': req.params.doc_id }, function(err, doc) {
+			if (err) {
+				res.send(err);
+			}
+
+			// update fields
+			doc = req.body;
+
+			// save it
+			doc.save(function (err) {
+				if (err) {
+					res.send(err);
+				}
+
+				res.json({ message: 'Document updated!', status: 1 });
+			});
+
+			res.json(doc);
+		})
 	});	
