@@ -53,6 +53,11 @@ var DocumentSchema = new Schema({
 		required: true 
 	},
 	title: String,
+	paid: {
+		type: Number,
+		default: 0
+	},	
+	sender: CustomerSchema,
 	customer: CustomerSchema,
 	startLocation: LocationSchema,
 	endLocation: LocationSchema,
@@ -82,6 +87,7 @@ var DocumentSchema = new Schema({
 		type: Date, 
 		default: Date.now 
 	},
+	driverID: Number,
 
 	// old fields
 	items: String,
