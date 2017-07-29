@@ -65,9 +65,12 @@ var OrderSchema = new Schema({
 		required: true 
 	},
 	title: String,
-	paid: Number,
+	paid: {
+		type: Number,
+		default: 0
+	},	
 	sender: CustomerSchema,
-	receiver: CustomerSchema,
+	customer: CustomerSchema,
 	startLocation: LocationSchema,
 	endLocation: LocationSchema,
 	vehicleTypeRequired: {						// 0 = normal, 1 = with cooler
