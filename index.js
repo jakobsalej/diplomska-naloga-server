@@ -181,7 +181,7 @@ router.route('/transports/:transport_id')
 	// GET ONE
 	.get(function(req, res) {
 		console.log('Requesting order with ID', req.params.transport_id);
-		Order.findOne({ '_id': new ObjectID(req.params.transport_id) }, function(err, doc) {
+		Order.findOne({ '_id': new ObjectId(req.params.transport_id) }, function(err, doc) {
 			if (err) {
 				res.send(err);
 			}
