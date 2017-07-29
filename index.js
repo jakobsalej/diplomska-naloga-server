@@ -44,7 +44,10 @@ router.get('/', function(req, res) {
 
 
 // connectiong to db
-mongoose.connect('mongodb://admin:admin@ds137891.mlab.com:37891/diploma_db');
+mongoose.connect('mongodb://admin:admin@ds137891.mlab.com:37891/diploma_db', {
+  useMongoClient: true,
+  /* other options */
+});
 
 
 // DOCUMENT ROUTER
