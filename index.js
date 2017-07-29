@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Order = require('./app/models/order');
+var Transport = require('./app/models/transport');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
