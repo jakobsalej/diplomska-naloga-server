@@ -32,21 +32,6 @@ var ItemSchema = new Schema({
 });
 
 
-var TransportSchema = new Schema({
-	transportID: { 
-		type: Number,
-		required: true
-	},
-	delivered: Boolean,
-	alerts: Array,
-	duration: String,
-	timeOfDelivery: Date,
-	vehicleType: Number,
-	driverID: String,
-	batchID: String,			// all orders processed in the same batch (same day?)		
-});
-
-
 var LocationSchema = new Schema({
 	x: { 
 		type: Number, 
@@ -87,14 +72,6 @@ var OrderSchema = new Schema({
 		type: Number, 
 		default: 0 
 	},									// 0 = not started, 1 = in process, 2 = finished
-	dateCreated: { 
-		type: Date, 
-		//default: Date.now 
-	},
-	dateUpdated: { 
-		type: Date, 
-		//default: Date.now 
-	},
 	text: String
 });
 
