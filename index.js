@@ -127,3 +127,85 @@ router.route('/orders/:order_id')
 			res.json(doc);
 		})
 	});	
+
+
+
+
+	// TRANSPORT ROUTER
+router.route('/transports')
+
+	// CREATE
+	.post(function(req, res) {
+		var doc = new Transport();
+		doc.idOrder = req.idOrder;
+		doc.delivered = req.delivered;
+		doc.measurements = req.measurements;
+		doc.alerts = req.alerts;
+		doc.startDate = req.startDate;
+		doc.endDate = req.endDate;
+		doc.duration = req.duration;
+		doc.vehicleType = req.vehicleType;
+		doc.vehicleReg = req.vehicleReg;
+		doc.driverID = req.driverID;
+		doc.text = req.text;
+
+		doc.save(function(err) {
+			if (err) {
+				res.send(err);
+			}
+
+			res.json({message: 'Document created!'});
+		});
+
+	})
+
+	// GET ALL
+	.get(function(req, res) {
+		Transport.find(function(err, docs) {
+			if (err) {
+				res.send(err);
+			}
+
+			res.json(docs);
+		});
+	});
+
+
+router.route('/transports/:transport_id')
+	
+	// GET ONE
+	.get(function(req, res) {
+		console.log('Requesting order with ID', req.params.transport_id);
+		Order.findOne({ '_id': req.params.transport_id }, function(err, doc) {
+			if (err) {
+				res.send(err);
+			}
+
+			res.json(doc);
+		});
+	})
+
+	// UPDATE
+	.put(function(req, res) {
+		console.log('Updating order with ID', req.params.order_id);
+		Order.findOne({ 'orderID': req.params.order_id }, function(err, doc) {
+			if (err) {
+				res.send(err);
+			}
+
+			// update fields
+			doc = req.body;
+
+			// save it
+			doc.save(function (err) {
+				if (err) {
+					res.send(err);
+				}
+
+				res.json({ message: 'Order updated!', status: 1 });
+			});
+
+			res.json(doc);
+		})
+	});	
+

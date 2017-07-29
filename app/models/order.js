@@ -27,6 +27,10 @@ var ItemSchema = new Schema({
 	},
 	name: String,
 	company: String,
+	quantity: {
+		type: Number,
+		default: 1
+	},
 	minTemp: Number,
 	maxTemp: Number
 });
@@ -60,14 +64,14 @@ var OrderSchema = new Schema({
 	endLocation: LocationSchema,
 	vehicleTypeRequired: {						// 0 = normal, 1 = with cooler
 		type: Number, 
-		default: 0 
+		default: 0
 	},
 	cargo: [ItemSchema],
 	date: Date,
-	transport: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Transport'
-  },
+	transportID: {
+		type: String,
+		default: null
+	},
 	status: { 
 		type: Number, 
 		default: 0 
