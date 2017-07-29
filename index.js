@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Document = require('./app/models/document');
+var Order = require('./app/models/order');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
@@ -48,11 +48,11 @@ mongoose.connect('mongodb://admin:admin@ds137891.mlab.com:37891/diploma_db');
 
 
 // DOCUMENT ROUTER
-router.route('/documents')
+router.route('/orders')
 
 	// CREATE
 	.post(function(req, res) {
-		var doc = new Document();
+		var doc = new Order();
 		doc.documentID = req.body.documentID;
 		doc.title = req.body.title;
 		doc.customer = req.body.customer;
@@ -80,7 +80,7 @@ router.route('/documents')
 
 	// GET ALL
 	.get(function(req, res) {
-		Document.find(function(err, docs) {
+		Order.find(function(err, docs) {
 			if (err) {
 				res.send(err);
 			}
@@ -90,12 +90,12 @@ router.route('/documents')
 	});
 
 
-router.route('/documents/:doc_id')
+router.route('/orders/:order_id')
 	
 	// GET ONE
 	.get(function(req, res) {
-		console.log('Requesting document with ID', req.params.doc_id);
-		Document.findOne({ 'documentID': req.params.doc_id }, function(err, doc) {
+		console.log('Requesting order with ID', req.params.order_id);
+		Order.findOne({ 'orderID': req.params.order_id }, function(err, doc) {
 			if (err) {
 				res.send(err);
 			}
@@ -106,8 +106,8 @@ router.route('/documents/:doc_id')
 
 	// UPDATE
 	.put(function(req, res) {
-		console.log('Requesting document with ID', req.params.doc_id);
-		Document.findOne({ 'documentID': req.params.doc_id }, function(err, doc) {
+		console.log('Updating order with ID', req.params.order_id);
+		Order.findOne({ 'orderID': req.params.order_id }, function(err, doc) {
 			if (err) {
 				res.send(err);
 			}
@@ -121,7 +121,7 @@ router.route('/documents/:doc_id')
 					res.send(err);
 				}
 
-				res.json({ message: 'Document updated!', status: 1 });
+				res.json({ message: 'Order updated!', status: 1 });
 			});
 
 			res.json(doc);

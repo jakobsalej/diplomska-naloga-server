@@ -8,6 +8,7 @@ var TransportSchema = new Schema({
 	},
 	delivered: Boolean,
 	alerts: Array,
+	measurements: Array,
 	duration: String,
 	timeOfDelivery: Date,
 	vehicleType: Number,

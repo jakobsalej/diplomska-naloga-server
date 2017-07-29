@@ -1,13 +1,24 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
 var CustomerSchema = new Schema({
 	customerID: { 
 		type: Number, 
 		required: true 
 	},
-	name: String
+	name: String,
+	address: AddressSchema
 });
+
+
+var AddressSchema = new Schema({
+	street: String,
+	city: String,
+	cityCode: Number,
+	country: String
+});
+
 
 var ItemSchema = new Schema({
 	itemID: { 
@@ -19,6 +30,7 @@ var ItemSchema = new Schema({
 	minTemp: Number,
 	maxTemp: Number
 });
+
 
 var TransportSchema = new Schema({
 	transportID: { 
@@ -34,6 +46,7 @@ var TransportSchema = new Schema({
 	batchID: String,			// all orders processed in the same batch (same day?)		
 });
 
+
 var LocationSchema = new Schema({
 	x: { 
 		type: Number, 
@@ -46,23 +59,24 @@ var LocationSchema = new Schema({
 });
 
 
-
-var DocumentSchema = new Schema({
-	documentID: { 
+var OrderSchema = new Schema({
+	orderID: { 
 		type: Number, 
 		required: true 
 	},
 	title: String,
-	customer: CustomerSchema,
+	paid: Number,
+	sender: CustomerSchema,
+	receiver: CustomerSchema,
 	startLocation: LocationSchema,
 	endLocation: LocationSchema,
-	vehicleTypeRequired: { 
+	vehicleTypeRequired: {						// 0 = normal, 1 = with cooler
 		type: Number, 
 		default: 0 
-	},		// 0 = normal, 1 = hladilnik
+	},
 	cargo: [ItemSchema],
-	dateDeadline: Date,
-	transportData: {
+	date: Date,
+	transport: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Transport'
   },
@@ -70,23 +84,15 @@ var DocumentSchema = new Schema({
 		type: Number, 
 		default: 0 
 	},									// 0 = not started, 1 = in process, 2 = finished
-	successfullyDelivered: {
-		type: Number,
-		default: 0				// 0 = false, 1 = true
-	},	
 	dateCreated: { 
 		type: Date, 
-		default: Date.now 
+		//default: Date.now 
 	},
 	dateUpdated: { 
 		type: Date, 
-		default: Date.now 
+		//default: Date.now 
 	},
-
-	// old fields
-	items: String,
-	text: String,
-	
+	text: String
 });
 
-module.exports = mongoose.model('Document', DocumentSchema);
+module.exports = mongoose.model('Order', OrderSchema);
