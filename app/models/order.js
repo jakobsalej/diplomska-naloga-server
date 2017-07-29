@@ -2,6 +2,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
+var AddressSchema = new Schema({
+	street: String,
+	city: String,
+	cityCode: Number,
+	country: String
+});
+
+
 var CustomerSchema = new Schema({
 	customerID: { 
 		type: Number, 
@@ -9,14 +17,6 @@ var CustomerSchema = new Schema({
 	},
 	name: String,
 	address: AddressSchema
-});
-
-
-var AddressSchema = new Schema({
-	street: String,
-	city: String,
-	cityCode: Number,
-	country: String
 });
 
 
