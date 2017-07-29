@@ -181,7 +181,7 @@ router.route('/transports/:transport_id')
 	// GET ONE
 	.get(function(req, res) {
 		console.log('Requesting order with ID', req.params.transport_id);
-		Order.findOne({ '_id': new ObjectId(req.params.transport_id) }, function(err, doc) {
+		Transport.findOne({ '_id': new ObjectId(req.params.transport_id) }, function(err, doc) {
 			if (err) {
 				res.send(err);
 			}
@@ -193,7 +193,7 @@ router.route('/transports/:transport_id')
 	// UPDATE
 	.put(function(req, res) {
 		console.log('Updating order with ID', req.params.order_id);
-		Order.findOne({ 'orderID': req.params.order_id }, function(err, doc) {
+		Transport.findOne({ 'orderID': req.params.order_id }, function(err, doc) {
 			if (err) {
 				res.send(err);
 			}
