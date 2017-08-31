@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 var Order = require('./app/models/order');
 var Transport = require('./app/models/transport');
+var User = require('./app/models/user');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
@@ -52,7 +53,7 @@ mongoose.connect('mongodb://admin:admin@ds137891.mlab.com:37891/diploma_db', {
 });
 
 
-// DOCUMENT ROUTER
+// ORDER ROUTER
 router.route('/orders')
 
 	// CREATE
@@ -136,7 +137,7 @@ router.route('/orders/:order_id')
 
 
 
-	// TRANSPORT ROUTER
+// TRANSPORT ROUTER
 router.route('/transports')
 
 	// CREATE
@@ -214,3 +215,36 @@ router.route('/transports/:transport_id')
 		})
 	});	
 
+
+
+
+// USERS ROUTER
+router.route('/users')
+
+	// CREATE
+	.post(function(req, res) {
+		var doc = new User();
+		doc.email = req.email;
+		doc.username = req.username;
+		doc.password = req.password;
+
+		doc.save(function(err) {
+			if (err) {
+				res.send(err);
+			}
+
+			res.json({message: 'User created!'});
+		});
+
+	})
+
+	// GET ALL
+	.get(function(req, res) {
+		Transport.find(function(err, docs) {
+			if (err) {
+				res.send(err);
+			}
+
+			res.json(docs);
+		});
+	});
