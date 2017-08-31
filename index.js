@@ -223,10 +223,15 @@ router.route('/users')
 
 	// CREATE
 	.post(function(req, res) {
+
+		console.log('New user:', req);
+
 		var doc = new User();
 		doc.email = req.email;
 		doc.username = req.username;
 		doc.password = req.password;
+
+		console.log('Adding user', doc);
 
 		doc.save(function(err) {
 			if (err) {
@@ -240,7 +245,7 @@ router.route('/users')
 
 	// GET ALL
 	.get(function(req, res) {
-		Transport.find(function(err, docs) {
+		User.find(function(err, docs) {
 			if (err) {
 				res.send(err);
 			}
