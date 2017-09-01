@@ -258,7 +258,7 @@ router.route('/users')
 
 router.route('/users/auth')
 
-	// CREATE
+	// AUTHENTICATE USER with email + password
 	.post(function(req, res) {
 
 		console.log('Auth', req.body);
@@ -269,16 +269,14 @@ router.route('/users/auth')
 			      	res.send(err);
 			    } else if (!user) {
 					var err = new Error('User not found.');
-		        	err.status = 401;
-		        	res.send(err);
+		        	res.send(401, err);
 			    }
 		      	bcrypt.compare(req.body.password, user.password, function (err, result) {
 			        if (result === true) {
 			         	res.send(user);
 			        } else {
 			        	var err = new Error('Wrong password!');
-			        	err.status = 401;
-			         	res.send(err);
+			         	res.send(401, err);
 			        }
 		    	});
 	    });
