@@ -268,10 +268,11 @@ router.route('/users/auth')
 		User.findOne({ email: req.body.email })
 		    .exec(function (err, user) {
 			    if (err) {
-			      	res.send(err);
+			      	return res.send(400, err);
 			    } else if (!user) {
-		        	res.send(401, 'User not found.');
+		        	return res.send(401, 'User not found.');
 			    }
+			    
 		      	bcrypt.compare(req.body.password, user.password, function (err, result) {
 			        if (result === true) {
 			         	res.send(user);
