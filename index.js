@@ -140,7 +140,7 @@ router.route('/orders/:order_id')
 // TRANSPORT ROUTER
 router.route('/transports')
 
-	// CREATE
+	// CREATE -- MISSING BODY!!!!
 	.post(function(req, res) {
 		var doc = new Transport();
 		doc.idOrder = req.idOrder;
@@ -227,9 +227,9 @@ router.route('/users')
 		console.log('New user:', req.body);
 
 		var doc = new User();
-		doc.email = req.email;
-		doc.username = req.username;
-		doc.password = req.password;
+		doc.email = req.body.email;
+		doc.username = req.body.username;
+		doc.password = req.body.password;
 
 		console.log('Adding user', doc);
 
