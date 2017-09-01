@@ -224,7 +224,7 @@ router.route('/users')
 	// CREATE
 	.post(function(req, res) {
 
-		console.log('New user:', req);
+		console.log('New user:', req.body);
 
 		var doc = new User();
 		doc.email = req.email;
