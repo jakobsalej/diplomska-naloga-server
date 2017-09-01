@@ -4,6 +4,7 @@ var Order = require('./app/models/order');
 var Transport = require('./app/models/transport');
 var User = require('./app/models/user');
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
 var express = require('express');
 var app = express();
 
