@@ -275,8 +275,7 @@ router.route('/users/auth')
 			        if (result === true) {
 			         	res.send(user);
 			        } else {
-			        	var err = new Error('Wrong password!');
-			         	res.send(401, err);
+			         	res.send(401, 'Wrong password');
 			        }
 		    	});
 	    });
