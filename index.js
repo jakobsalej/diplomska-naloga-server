@@ -262,6 +262,8 @@ router.route('/users/auth')
 	.post(function(req, res) {
 
 		console.log('Auth', req.body);
+		console.log('Email', req.body.email);
+		console.log('Password', req.body.password);
 
 		User.findOne({ email: req.body.email })
 		    .exec(function (err, user) {
