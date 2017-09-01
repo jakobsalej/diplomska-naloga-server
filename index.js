@@ -268,8 +268,7 @@ router.route('/users/auth')
 			    if (err) {
 			      	res.send(err);
 			    } else if (!user) {
-					var err = new Error('User not found.');
-		        	res.send(401, err);
+		        	res.send(401, 'User not found.');
 			    }
 		      	bcrypt.compare(req.body.password, user.password, function (err, result) {
 			        if (result === true) {
