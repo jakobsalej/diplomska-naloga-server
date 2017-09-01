@@ -254,3 +254,31 @@ router.route('/users')
 			res.json(docs);
 		});
 	});
+
+
+router.route('/users/auth')
+
+	// CREATE
+	.post(function(req, res) {
+
+		console.log('Auth', req.body);
+
+		User.findOne({ email: req.body.email })
+		    .exec(function (err, user) {
+		      if (err) {
+		      	res.send(err);
+		      } else if (!user) {
+		        var err = new Error('User not found.');
+		        err.status = 401;
+		        res.send(err);
+		      }
+		      bcrypt.compare(req.body.password, user.password, function (err, result) {
+		        if (result === true) {
+		          res.send('AUTHENTICATED');
+		        } else {
+		          res.send('DENIED!');
+		        }
+		      })
+	    });
+
+	})
