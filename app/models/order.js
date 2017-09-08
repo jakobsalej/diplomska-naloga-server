@@ -20,6 +20,13 @@ var CustomerSchema = new Schema({
 });
 
 
+var CargoSchema = new Schema({
+	minTemp: Number,
+	maxTemp: Number,
+	items: [ItemSchema]
+});
+
+
 var ItemSchema = new Schema({
 	itemID: { 
 		type: Number, 
@@ -66,7 +73,7 @@ var OrderSchema = new Schema({
 		type: Number, 
 		default: 0
 	},
-	cargo: [ItemSchema],
+	cargo: CargoSchema,
 	date: Date,
 	transportID: {
 		type: String,
