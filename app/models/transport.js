@@ -21,7 +21,7 @@ var TransportSchema = new Schema({
 	startDate: Date,
 	endDate: Date,
 	duration: String,
-	stats: StatsSchema
+	stats: StatsSchema,
 	vehicleType: Number,
 	vehicleReg: String,
 	driverID: String,
