@@ -20,13 +20,6 @@ var CustomerSchema = new Schema({
 });
 
 
-var CargoSchema = new Schema({
-	minTemp: Number,
-	maxTemp: Number,
-	items: [ItemSchema]
-});
-
-
 var ItemSchema = new Schema({
 	itemID: { 
 		type: Number, 
@@ -40,6 +33,13 @@ var ItemSchema = new Schema({
 	},
 	minTemp: Number,
 	maxTemp: Number
+});
+
+
+var CargoSchema = new Schema({
+	minTemp: Number,
+	maxTemp: Number,
+	items: [ItemSchema]
 });
 
 
