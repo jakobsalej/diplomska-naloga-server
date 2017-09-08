@@ -2,7 +2,9 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 var Order = require('./app/models/order');
 var Transport = require('./app/models/transport');
+var User = require('./app/models/user');
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
 var express = require('express');
 var app = express();
 
@@ -52,7 +54,7 @@ mongoose.connect('mongodb://admin:admin@ds137891.mlab.com:37891/diploma_db', {
 });
 
 
-// DOCUMENT ROUTER
+// ORDER ROUTER
 router.route('/orders')
 
 	// CREATE
@@ -136,10 +138,10 @@ router.route('/orders/:order_id')
 
 
 
-	// TRANSPORT ROUTER
+// TRANSPORT ROUTER
 router.route('/transports')
 
-	// CREATE
+	// CREATE -- MISSING BODY!!!!
 	.post(function(req, res) {
 		var doc = new Transport();
 		doc.idOrder = req.idOrder;
@@ -214,3 +216,70 @@ router.route('/transports/:transport_id')
 		})
 	});	
 
+
+
+
+// USERS ROUTER
+router.route('/users')
+
+	// CREATE
+	.post(function(req, res) {
+
+		console.log('New user:', req.body);
+
+		var doc = new User();
+		doc.email = req.body.email;
+		doc.username = req.body.username;
+		doc.password = req.body.password;
+
+		console.log('Adding user', doc);
+
+		doc.save(function(err) {
+			if (err) {
+				res.send(err);
+			}
+
+			res.json({message: 'User created!'});
+		});
+
+	})
+
+	// GET ALL
+	.get(function(req, res) {
+		User.find(function(err, docs) {
+			if (err) {
+				res.send(err);
+			}
+
+			res.json(docs);
+		});
+	});
+
+
+router.route('/users/auth')
+
+	// AUTHENTICATE USER with email + password
+	.post(function(req, res) {
+
+		console.log('Auth', req.body);
+		console.log('Email', req.body.email);
+		console.log('Password', req.body.password);
+
+		User.findOne({ email: req.body.email })
+		    .exec(function (err, user) {
+			    if (err) {
+			      	return res.send(400, err);
+			    } else if (!user) {
+		        	return res.send(401, 'User not found.');
+			    }
+			    
+		      	bcrypt.compare(req.body.password, user.password, function (err, result) {
+			        if (result === true) {
+			         	res.send(user);
+			        } else {
+			         	res.send(401, 'Wrong password');
+			        }
+		    	});
+	    });
+
+	})
